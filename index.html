@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>100 Pâtisseries</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: sections uniformes (étiquette, titre, contenu), alternance blanc / lilas, une seule section sombre pour l'offre. Mobile first, barre d'achat collée en bas sur téléphone. */
+:root {
+  --ink: #3A2018;
+  --mute: #7A5B50;
+  --bg: #FFFFFF;
+  --soft: #FFF0F3;
+  --line: #F0D3DB;
+  --accent: #D6336C;
+  --accent-hover: #B52458;
+  --deep: #3A2018;
+  --deep-line: #5A3A2F;
+  --on-deep: #FBE9DF;
+  --butter: #FFD66B;
+  --star: #F2A900;
+  --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --r: 6px;
+  --shadow: 0 1px 2px rgba(58,32,24,.06), 0 8px 24px rgba(58,32,24,.08);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { max-width: 100%; }
+a { color: inherit; }
+.band { padding-block: 56px; }
+.band.soft { background: var(--soft); }
+.band.deep { background: var(--deep); color: var(--on-deep); }
+.wrap {
+  max-width: 1040px; margin-inline: auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 12px;
+}
+.deep .eyebrow { color: #FFB3C8; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.12; margin: 0; letter-spacing: -.02em; }
+h1 { font-size: clamp(34px, 9vw, 56px); font-weight: 800; }
+h2 { font-size: clamp(26px, 6.4vw, 38px); font-weight: 800; }
+h3 { font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+.lead { color: var(--mute); font-size: 18px; max-width: 56ch; margin: 16px 0 0; }
+.deep .lead { color: var(--on-deep); }
+.head { margin-bottom: 32px; max-width: 640px; }
+
+/* Boutons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 0 26px; border-radius: var(--r);
+  background: var(--accent); color: #fff; font: 700 16px/1 var(--font);
+  text-decoration: none; border: 0; cursor: pointer;
+  box-shadow: 0 1px 2px rgba(58,32,24,.2), 0 6px 16px rgba(214,51,108,.28);
+  transition: background .15s, transform .15s;
+}
+.btn:hover { background: var(--accent-hover); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible, summary:focus-visible { outline: 3px solid #F59AB5; outline-offset: 3px; }
+.btn.block { width: 100%; }
+.btn.light { background: #fff; color: var(--deep); box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.btn.light:hover { background: var(--soft); }
+.note { font-size: 14px; color: var(--mute); margin: 12px 0 0; }
+.deep .note { color: #E8CFC4; }
+
+/* Hero */
+.hero { padding-block: 40px 56px; }
+.hero-grid { display: grid; gap: 40px; align-items: center; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 24px 0 28px; }
+.chips li {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px;
+  border: 1px solid var(--line); border-radius: var(--r); background: var(--soft);
+  font-size: 14px; font-weight: 600;
+}
+.chips svg, .ico { width: 18px; height: 18px; flex: none; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cta-row { display: flex; flex-direction: column; gap: 4px; }
+
+/* Couverture du livre */
+.cover-stage { display: flex; justify-content: center; padding: 8px 0; }
+.cover {
+  width: min(300px, 78%); aspect-ratio: 3 / 4; background: var(--deep); color: #fff;
+  border-radius: 4px 10px 10px 4px; padding: 26px 22px; display: flex; flex-direction: column;
+  box-shadow: -8px 0 0 -2px #261109 inset, 0 2px 4px rgba(58,32,24,.2), 0 24px 48px rgba(58,32,24,.28);
+  transform: rotate(-2.5deg);
+}
+.cover small { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #FFB3C8; font-weight: 700; }
+.cover b { font-size: 46px; line-height: 1; font-weight: 800; margin-top: 10px; letter-spacing: -.03em; }
+.cover span { font-size: 21px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
+.cover svg { width: 100%; margin-top: auto; stroke: #FFD66B; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cover i { font-style: normal; font-size: 12px; color: #FFB3C8; margin-top: 12px; }
+
+/* Chiffres */
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.stat { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; box-shadow: var(--shadow); }
+.stat b { display: block; font-size: 38px; font-weight: 800; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.stat span { display: block; margin-top: 8px; font-size: 14px; color: var(--mute); font-weight: 500; }
+.stat.hl { background: var(--accent); border-color: var(--accent); }
+.stat.hl b, .stat.hl span { color: #fff; }
+
+/* Cartes de contenu */
+.grid { display: grid; gap: 16px; }
+.card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; box-shadow: var(--shadow); }
+.card .ico-box {
+  width: 44px; height: 44px; border-radius: var(--r); background: var(--soft);
+  display: grid; place-items: center; margin-bottom: 16px;
+}
+.card .ico-box .ico { width: 24px; height: 24px; }
+.card p { margin: 8px 0 0; color: var(--mute); }
+
+/* Page de recette */
+.split { display: grid; gap: 32px; align-items: start; }
+.sheet {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow);
+  padding: 18px; max-width: 460px; width: 100%; margin-inline: auto;
+}
+.sheet .photo {
+  aspect-ratio: 16 / 9; border-radius: 4px; background: var(--soft);
+  display: grid; place-items: center; border: 1px solid var(--line);
+}
+.sheet .photo svg { width: 56%; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sheet h3 { font-size: 17px; margin: 14px 0 2px; }
+.sheet .meta { font-size: 12px; color: var(--mute); margin: 0 0 12px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 13px; line-height: 1.5; }
+.cols h4 { margin: 0 0 6px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.cols ul, .cols ol { margin: 0; padding-left: 16px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.tags span { font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 4px; background: var(--soft); border: 1px solid var(--line); }
+.sheet .eg { font-size: 11px; color: var(--mute); margin: 12px 0 0; text-align: center; }
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+.list li { display: grid; grid-template-columns: 24px 1fr; gap: 12px; }
+.list b { display: block; }
+.list span { color: var(--mute); font-size: 15px; }
+
+/* Avis */
+.stars { display: flex; gap: 2px; }
+.stars svg { width: 18px; height: 18px; fill: var(--star); }
+.quote { display: flex; flex-direction: column; gap: 16px; margin: 0; }
+.quote blockquote { margin: 0; font-size: 16px; color: var(--ink); }
+.quote .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.quote .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--soft); border: 1px solid var(--line); display: grid; place-items: center; font-weight: 800; color: var(--accent); flex: none; }
+.quote .who b { display: block; line-height: 1.2; }
+.quote .who span { font-size: 14px; color: var(--mute); }
+
+/* Compte à rebours */
+.topbar { background: var(--deep); color: var(--on-deep); font-size: 14px; }
+.topbar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2px 14px; padding-block: 10px; text-align: center; }
+.topbar b { color: #fff; }
+.topbar .time { font-weight: 800; color: var(--butter); letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.cd-label { font-size: 13px; font-weight: 600; color: var(--mute); margin: 0 0 8px; }
+.cd { display: flex; gap: 8px; margin: 0 0 20px; }
+.cd div { flex: 1; background: var(--soft); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 0 8px; text-align: center; }
+.cd b { display: block; font-size: 28px; line-height: 1; font-weight: 800; font-variant-numeric: tabular-nums; }
+.cd small { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); font-weight: 700; }
+
+/* Offre */
+.offer { background: #fff; color: var(--ink); border-radius: var(--r); padding: 28px 24px; box-shadow: 0 24px 48px rgba(0,0,0,.3); max-width: 520px; }
+.offer .label { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.price { display: flex; align-items: baseline; gap: 8px; margin: 8px 0 4px; }
+.price b { font-size: 60px; line-height: 1; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.price span { font-size: 20px; font-weight: 700; color: var(--mute); }
+.offer .once { color: var(--mute); font-size: 14px; margin: 0 0 20px; }
+.offer ul { list-style: none; padding: 20px 0 0; margin: 0 0 24px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+.offer li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 15px; }
+.offer .note { text-align: center; color: var(--mute); }
+
+/* FAQ */
+.faq { display: grid; gap: 10px; max-width: 760px; }
+details { border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
+summary {
+  list-style: none; cursor: pointer; padding: 18px 20px; font-weight: 700; display: flex;
+  justify-content: space-between; gap: 16px; align-items: center;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 22px; font-weight: 500; color: var(--accent); line-height: 1; }
+details[open] summary::after { content: "\2212"; }
+details p { margin: 0; padding: 0 20px 20px; color: var(--mute); }
+
+/* CTA final */
+.final { text-align: left; }
+.final .btn { margin-top: 24px; }
+
+footer { padding-block: 32px 120px; border-top: 1px solid var(--line); font-size: 14px; color: var(--mute); }
+
+/* Barre d'achat mobile */
+.sticky {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: #fff; border-top: 1px solid var(--line);
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  box-shadow: 0 -8px 24px rgba(58,32,24,.08);
+}
+.sticky div { line-height: 1.2; }
+.sticky b { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.sticky small { display: block; color: var(--mute); font-size: 12px; }
+.sticky .btn { min-height: 46px; padding: 0 20px; font-size: 15px; }
+
+@media (min-width: 640px) {
+  .grid.two { grid-template-columns: repeat(2, 1fr); }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .stats { grid-template-columns: repeat(4, 1fr); }
+  .cta-row { flex-direction: row; align-items: center; gap: 20px; }
+}
+@media (min-width: 860px) {
+  .band { padding-block: 88px; }
+  .hero { padding-block: 64px 88px; }
+  .hero-grid { grid-template-columns: 1.15fr .85fr; gap: 56px; }
+  .split { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .sticky { display: none; }
+  footer { padding-block: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 20h16M5 20v-6h14v6M5 14c0-1.5 1.5-2 3.5-2s2.5 1 3.5 1 2-1 3.5-1S19 12.5 19 14M12 9V6M12 6c-.8-.8-.8-1.8 0-2.6.8.8.8 1.8 0 2.6z"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></symbol>
+    <symbol id="i-pot" viewBox="0 0 24 24"><path d="M5 9h14v8a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V9zM3 9h18M9 5l1.5 2M15 5l-1.5 2"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4zM5 17a3 3 0 0 1 3-3h11M9 8h6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10c0-1 1-1.5 2.5-1.5s2.5.6 2.5 1.6-1 1.4-2.5 1.8-2.5.8-2.5 1.8 1 1.5 2.5 1.5 2.5-.5 2.5-1.5"/></symbol>
+    <symbol id="i-hat" viewBox="0 0 24 24"><path d="M7 14a4 4 0 1 1 1.5-7.7A4 4 0 0 1 15.5 6.3 4 4 0 1 1 17 14v5H7v-5zM7 17h10"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M4 20h16M7 20l1-9h8l1 9M12 11V7M8.5 7h7"/><path d="M3 4l18 16" opacity="0"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.7L12 17.5 6.1 20.8l1.3-6.7L2.5 9.5l6.6-.8z"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Prix du jour : <b>950 FCFA</b></span>
+    <span>L'offre se terminant dans <span class="time" data-cd-text>--:--:--</span></span>
+  </div>
+</div>
+
+<header class="band hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Livre numérique · PDF</p>
+      <h1>100 pâtisseries, avec ou sans four</h1>
+      <p class="lead">Le grand guide de la pâtisserie facile, rapide et accessible à tous. 100 recettes gourmandes, toutes photographiées, à réaliser avec le matériel que vous avez déjà.</p>
+      <ul class="chips">
+        <li><svg class="ico"><use href="#i-cake"/></svg>100 recettes</li>
+        <li><svg class="ico"><use href="#i-flame"/></svg>Avec ou sans four</li>
+        <li><svg class="ico"><use href="#i-hat"/></svg>Facile, même débutant</li>
+        <li><svg class="ico"><use href="#i-coin"/></svg>Économique</li>
+      </ul>
+      <div class="cta-row">
+        <a class="btn buy" href="https://ussughoq.mychariow.shop/prd_7nyhlov0/checkout">Obtenir le livre · 950 FCFA</a>
+        <p class="note">Téléchargement immédiat, lisible sur téléphone et ordinateur.</p>
+      </div>
+    </div>
+    <div class="cover-stage" aria-hidden="true">
+      <div class="cover">
+        <small>Le grand guide</small>
+        <b>100</b>
+        <span>pâtisseries sans four et avec four</span>
+        <svg viewBox="0 0 200 110"><path d="M20 100h160M34 100V62h132v38M34 62c0-10 14-14 30-14s22 7 36 7 22-7 36-7 30 4 30 14M100 40V22M100 22c-6-6-6-13 0-19 6 6 6 13 0 19z"/><path d="M52 84h96" opacity=".5"/></svg>
+        <i>125 pages · format A4 · PDF</i>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="band soft" aria-label="Le livre en chiffres">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>100</b><span>recettes</span></div>
+      <div class="stat"><b>100</b><span>photos</span></div>
+      <div class="stat"><b>125</b><span>pages</span></div>
+      <div class="stat hl"><b>950</b><span>FCFA, paiement unique</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="contenu">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Ce que vous obtenez</p>
+      <h2>Un livre, quatre choses dedans</h2>
+      <p class="lead">De quoi cuisiner pendant des mois sans refaire deux fois la même recette.</p>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <div class="ico-box"><svg class="ico"><use href="#i-cake"/></svg></div>
+        <h3>100 recettes, une par page</h3>
+        <p>Gâteaux, cakes et muffins, gâteaux d'anniversaire, tartes, cheesecakes, pâtisseries sans four, beignets et brioches.</p>
+      </article>
+      <article class="card">
+        <div class="ico-box"><svg class="ico"><use href="#i-flame"/></svg></div>
+        <h3>La double méthode</h3>
+        <p>Sur chaque fiche, la cuisson au four et, juste à côté, la version sans four. Si une recette exige un four, la fiche le dit et propose une alternative.</p>
+      </article>
+      <article class="card">
+        <div class="ico-box"><svg class="ico"><use href="#i-pot"/></svg></div>
+        <h3>Le chapitre « cuire sans four »</h3>
+        <p>Marmite, casserole, poêle, vapeur, charbon, micro-ondes : quelle méthode pour quel gâteau, et comment s'y prendre.</p>
+      </article>
+      <article class="card">
+        <div class="ico-box"><svg class="ico"><use href="#i-book"/></svg></div>
+        <h3>3 guides pratiques offerts</h3>
+        <p>Les équivalences de mesure, la conservation de 15 préparations et les 15 raisons pour lesquelles un gâteau rate.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band soft" id="page">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">À quoi ressemble une page</p>
+      <h2>Une recette, une page. Tout est là.</h2>
+      <p class="lead">Chaque fiche suit le même schéma, pour que vous sachiez toujours où regarder.</p>
+      <ul class="list" style="margin-top:28px">
+        <li><svg class="ico"><use href="#i-check"/></svg><div><b>La photo</b><span>En grand, en haut de page.</span></div></li>
+        <li><svg class="ico"><use href="#i-check"/></svg><div><b>Les ingrédients en double mesure</b><span>Au verre ou au pot, et l'équivalent en grammes.</span></div></li>
+        <li><svg class="ico"><use href="#i-check"/></svg><div><b>Des étapes numérotées</b><span>Une action par étape.</span></div></li>
+        <li><svg class="ico"><use href="#i-check"/></svg><div><b>Les deux cuissons</b><span>Au four, et sans four.</span></div></li>
+        <li><svg class="ico"><use href="#i-check"/></svg><div><b>L'astuce, l'erreur à éviter et la conservation</b><span>Pour réussir du premier coup et savoir combien de jours ça se garde.</span></div></li>
+      </ul>
+    </div>
+    <div class="sheet" aria-label="Exemple de page du livre">
+      <div class="photo"><svg viewBox="0 0 200 110"><path d="M20 100h160M34 100V62h132v38M34 62c0-10 14-14 30-14s22 7 36 7 22-7 36-7 30 4 30 14"/></svg></div>
+      <h3>Recette n° 001 · Le gâteau au yaourt de base</h3>
+      <p class="meta">Facile · à apprendre par cœur</p>
+      <div class="cols">
+        <div>
+          <h4>Ingrédients</h4>
+          <ul><li>1 pot de yaourt</li><li>2 pots de sucre</li><li>3 pots de farine</li><li>½ pot d'huile</li><li>3 œufs</li></ul>
+        </div>
+        <div>
+          <h4>Étapes</h4>
+          <ol><li>Mélanger le yaourt et le sucre</li><li>Ajouter œufs et huile</li><li>Incorporer la farine</li></ol>
+        </div>
+      </div>
+      <div class="tags"><span>Cuisson au four</span><span>Version sans four</span><span>Astuce du chef</span><span>Conservation</span></div>
+      <p class="eg">Aperçu illustratif d'une fiche.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="pour-qui">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">C'est pour vous si</p>
+      <h2>Trois situations, une seule solution</h2>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <div class="ico-box"><svg class="ico"><use href="#i-flame"/></svg></div>
+        <h3>Vous n'avez pas de four</h3>
+        <p>Vous voulez quand même faire des gâteaux maison, pour la famille ou les grandes occasions.</p>
+      </article>
+      <article class="card">
+        <div class="ico-box"><svg class="ico"><use href="#i-scale"/></svg></div>
+        <h3>Vous n'avez pas de balance</h3>
+        <p>Vous cuisinez au verre, au pot de yaourt et à la cuillère. Les mesures du livre sont faites pour ça.</p>
+      </article>
+      <article class="card">
+        <div class="ico-box"><svg class="ico"><use href="#i-hat"/></svg></div>
+        <h3>Vous débutez</h3>
+        <p>Vous voulez des recettes claires, sans jargon, avec le nombre de parts et la difficulté indiqués.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band soft" id="avis">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Leurs retours</p>
+      <h2>Ils ont essayé les recettes</h2>
+      <p class="lead">Les messages de lectrices, tels qu'elles nous les ont envoyés.</p>
+    </div>
+    <div class="grid three">
+      <figure class="card quote">
+        <div class="stars" role="img" aria-label="5 étoiles sur 5"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg></div>
+        <blockquote>« Franchement, je ne pensais pas pouvoir réussir de beaux gâteaux moi-même ! Les recettes sont bien expliquées et faciles à suivre. J’ai déjà testé plusieurs recettes et ma famille adore. Je recommande ! 😍 »</blockquote>
+        <figcaption class="who"><span class="avatar">G</span><div><b>Grâce A.</b></div></figcaption>
+      </figure>
+      <figure class="card quote">
+        <div class="stars" role="img" aria-label="5 étoiles sur 5"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg></div>
+        <blockquote>« Pour seulement 950 FCFA, je ne m’attendais pas à avoir autant de recettes ! Il y a beaucoup de choix et les explications sont simples. J’aime particulièrement les recettes qu’on peut réaliser sans four. Très satisfaite de mon achat ! ❤️ »</blockquote>
+        <figcaption class="who"><span class="avatar">M</span><div><b>Mireille K.</b></div></figcaption>
+      </figure>
+      <figure class="card quote">
+        <div class="stars" role="img" aria-label="5 étoiles sur 5"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg></div>
+        <blockquote>« Cet ebook m’a donné beaucoup d’idées pour varier mes pâtisseries. Les recettes sont gourmandes, les astuces sont pratiques et on n’a pas besoin de matériel compliqué. C’est exactement ce que je recherchais ! 🥰 »</blockquote>
+        <figcaption class="who"><span class="avatar">S</span><div><b>Sandrine D.</b></div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="band deep" id="offre">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Le livre complet</p>
+      <h2>Un seul fichier PDF, à vous pour de bon</h2>
+      <p class="lead">Vous l'ouvrez sur votre téléphone, vous le gardez, vous cuisinez avec quand vous voulez.</p>
+    </div>
+    <div class="offer">
+      <span class="label">Paiement unique</span>
+      <div class="price"><b>950</b><span>FCFA</span></div>
+      <p class="once">Un seul règlement, aucun abonnement.</p>
+      <p class="cd-label">L'offre se terminant dans</p>
+      <div class="cd" role="timer" aria-live="off">
+        <div><b data-cd="h">00</b><small>heures</small></div>
+        <div><b data-cd="m">00</b><small>min</small></div>
+        <div><b data-cd="s">00</b><small>sec</small></div>
+      </div>
+      <ul>
+        <li><svg class="ico"><use href="#i-check"/></svg><span><b>100 recettes</b> photographiées, une par page, format A4</span></li>
+        <li><svg class="ico"><use href="#i-check"/></svg><span>Cuisson au four <b>et</b> version sans four sur chaque fiche</span></li>
+        <li><svg class="ico"><use href="#i-check"/></svg><span>Le chapitre <b>« cuire sans four »</b></span></li>
+        <li><svg class="ico"><use href="#i-check"/></svg><span>Les <b>3 guides pratiques</b> : équivalences, conservation, erreurs</span></li>
+        <li><svg class="ico"><use href="#i-check"/></svg><span>Une version légère, pour l'envoyer par messagerie</span></li>
+      </ul>
+      <a class="btn block buy" href="https://ussughoq.mychariow.shop/prd_7nyhlov0/checkout">Obtenir le livre</a>
+      <p class="note">Paiement sécurisé par carte bancaire ou mobile money.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="faq">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Avant de commander</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Je n'ai pas de four. Est-ce que ça me sert ?</summary><p>Oui, le livre est fait pour ça. Chaque recette a sa version sans four : marmite, casserole, poêle, vapeur, charbon ou micro-ondes. Pour les quelques recettes qui exigent vraiment un four, la fiche le dit et propose une alternative réalisable.</p></details>
+      <details><summary>Je n'ai pas de balance.</summary><p>Tout est mesuré au verre (200 ml), à la tasse (250 ml), au pot de yaourt (125 ml) et à la cuillère. Les grammes sont indiqués pour ceux qui en ont besoin, mais vous pouvez vous en passer.</p></details>
+      <details><summary>Sur quels appareils s'ouvre le livre ?</summary><p>Sur téléphone Android, iPhone, tablette et ordinateur. C'est un PDF standard, sans mot de passe, qui s'ouvre avec n'importe quelle application PDF.</p></details>
+      <details><summary>Les ingrédients sont-ils faciles à trouver ?</summary><p>Oui : farine, sucre, œufs, huile, lait, beurre ou margarine, cacao, coco, banane, arachides, lait concentré, biscuits secs. Rien d'introuvable au marché.</p></details>
+      <details><summary>Comment je reçois le livre ?</summary><p>Après le paiement, vous recevez immédiatement le lien de téléchargement. Une fois téléchargé, le fichier reste à vous.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band soft final">
+  <div class="wrap">
+    <div class="head" style="margin-bottom:0">
+      <p class="eyebrow">Prêt à commencer ?</p>
+      <h2>Réalisez facilement de délicieux gâteaux, desserts et gourmandises</h2>
+      <p class="lead">100 recettes, 100 photos, et deux façons de cuisiner chaque gâteau. Pour 950 FCFA.</p>
+      <a class="btn buy" href="https://ussughoq.mychariow.shop/prd_7nyhlov0/checkout">Obtenir le livre · 950 FCFA</a>
+      <p class="note">Téléchargement immédiat après paiement.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0">100 pâtisseries sans four et avec four. Livre numérique de 125 pages, 100 recettes photographiées, format A4.</p>
+  </div>
+</footer>
+
+<div class="sticky">
+  <div><b>950 FCFA</b><small>Paiement unique · PDF</small></div>
+  <a class="btn buy" href="https://ussughoq.mychariow.shop/prd_7nyhlov0/checkout">Obtenir le livre</a>
+</div>
+
+<script>
+  // Remplacez par le lien de paiement de votre boutique (Chariow ou autre).
+  var BUY_URL = "https://ussughoq.mychariow.shop/prd_7nyhlov0/checkout";
+  if (BUY_URL) {
+    document.querySelectorAll("a.buy").forEach(function (a) { a.href = BUY_URL; });
+  }
+</script>
+<script>
+  // Compte à rebours de 24 h, commun à tous les visiteurs, calé sur minuit à Cotonou (UTC+1).
+  // Il repart de 24:00:00 dès qu'il atteint zéro.
+  (function () {
+    function pad(n) { return n < 10 ? "0" + n : "" + n; }
+    function set(sel, v) { document.querySelectorAll(sel).forEach(function (e) { e.textContent = v; }); }
+    function tick() {
+      var ms = 86400000 - ((Date.now() + 3600000) % 86400000);
+      var t = Math.floor(ms / 1000), h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), sec = t % 60;
+      set('[data-cd="h"]', pad(h)); set('[data-cd="m"]', pad(m)); set('[data-cd="s"]', pad(sec));
+      set("[data-cd-text]", pad(h) + ":" + pad(m) + ":" + pad(sec));
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+</body>
+</html>
